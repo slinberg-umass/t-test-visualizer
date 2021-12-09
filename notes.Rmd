@@ -1,0 +1,35 @@
+---
+title: "dev_log"
+output: html_notebook
+---
+
+# Development log
+
+## 2021-12-06
+
+Rewriting the final-project app with a more reactive design, hopefully significantly improving performance.
+
+Key initial fix: use a reactive variable `click_counter` to record clicks of the `Resample` button, and make the `samp_vals` array dependent on both it and the `input$samp_sd` control, so that the sample gets rebuilt whenever the control changes OR the button is clicked:
+
+```{r, eval=FALSE}
+    # initialize click_counter; the samp_vals reactive variable will
+    # react to changes in it and force resample.
+    click_counter <- reactiveVal(0)
+    # Increment the click_counter on a click of "Resample"
+    observeEvent(input$resample, {
+        click_counter(click_counter() + 1) 
+    })
+    
+    # Resample the values when the SD control changes, or when click_counter
+    # changes.
+    samp_vals <- reactive({
+        click_counter()
+        # message("samp_vals called, sd input = ", input$samp_sd)
+        rnorm(SAMP_MAX, mean = 0, sd = input$samp_sd)
+    })
+```
+
+## 2021-12-09
+
+The rewrite considerably cleaned the code and has a better reactive structure, but unfortunately it didn't increase performance much. Drawing plots takes time, I guess.
+

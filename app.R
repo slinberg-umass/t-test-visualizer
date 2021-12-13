@@ -94,6 +94,84 @@ ui <- fluidPage(
             verbatimTextOutput("t.out")
         )
     ),
+    hr(),
+    h2("Disussion", id = "discussion"),
+    markdown("
+### Functionality
+
+This app runs t-tests on small samples of data drawn from a normal distribution,
+against a hypothesized population mean. The sample can be adjusted by size, mean,
+and standard deviation, and the t-test alpha threshold can be chosen. The graph
+draws the appropriate t-distribution for the sample size, and shows the mean,
+the confidence intervals, the critical thresholds, and the t-statistic.
+
+The default setting of the app sets the sample mean at 1 and the population
+mean at 0, so that there will be some difference. The default standard deviation
+is 2, and the sample size is 30.
+
+### Purpose and scope
+
+The purpose of this app was to serve as a learning tool for myself, to better
+understand the underlying meaning of t-tests, and in particular what the
+t-statistic represents.
+
+Coming from an engineering background without a great deal of formal
+statistics, I felt reasonably confident running t-tests in code and working
+with the output, but I didn't have an intuitive sense of what the various
+components meant. Also, there were many concepts I was conflating, like the
+difference between confidence intervals and critical values / rejection zones,
+and some other areas I would have been unclear on if called to explain, like:
+which distribution curve do you plot the tails on? The population
+distribution? The sample distribution? A curve of the sample itself?
+
+Visuals are an essential part of working with statistics; sets of data that could be wildly different can have the same means, standard deviations, so visual exploration is an indispensible element of statistical analysis, for two reasons:
+
+1. They can offer a way to distinguish (visually) differences in data that can
+be hard to detect in code, or in the results of mathematical operations, and
+
+1. They can lead to intuitive understandings in a different way than pure
+mathematical analysis; many people self-describe as \"visual learners\" who
+understand graphical representations of data better than tables and formulas.
+
+The working process was to do all of the t-test calculations manually, and
+compare them with the results of the R `t.test()` function. Doing so forced me
+to get correct answers to all of the parts of the process that I was unsure
+about.
+
+The biggest takeaway for me personally, at this point, is the ability to see
+how the t statistic changes (quickly) in response to small changes in the
+sample mean. When the t-value falls into a critical zone, the p-value is below
+the alpha threshold, and the result is statistically significant. This is not
+a concept I could have articulated clearly before building this visualizer.
+
+### Bugs and issues
+    
+- Need critical values in legend
+- Need to parameterize height of graph
+- get LaTeX in the legend, mu = $\\mu$
+    
+### Future directions
+
+Unfortunately a rewrite of the code didn't do much to improve rendering speed.
+
+Next, I want to add support for one-tailed tests.
+
+Ultimately, I'd like to make a tab-based interface with similar structures for
+other types of tests, like ANOVA and Chisq, and possibly even linear models if
+I can work out a common interface.
+
+### Contact
+    
+Steve Linberg<br />
+steve@slinberg.net<br />
+https://slinberg.net
+
+### Class comments
+
+- Allow text inputs to controls
+
+
+")
 )
 
 # server:

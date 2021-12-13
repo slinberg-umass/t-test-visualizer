@@ -160,6 +160,12 @@ Ultimately, I'd like to make a tab-based interface with similar structures for
 other types of tests, like ANOVA and Chisq, and possibly even linear models if
 I can work out a common interface.
 
+### Source code
+
+Available on GitHub:
+
+https://github.com/slinberg-umass/t-test-visualizer
+
 ### Contact
     
 Steve Linberg<br />
